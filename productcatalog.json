@@ -1,0 +1,21 @@
+{
+    "_id":"_design/productcatalog",
+    "_rev":"58-d94f7f200ed5a4e39d30ab831ce6b177",
+    "views":{
+	"byId":{
+	    "map":"function(doc){ emit(doc._id, doc)}"
+	},
+	"byName":{
+	    "map":"function(doc){ emit(doc.Name, doc)}"
+	},
+	"devices":{
+	    "map":"function(doc){ if (doc.Type === 'Device') {emit(doc.Sku, doc)} }"
+	},
+	"accessories":{
+	    "map":"function(doc){ if (doc.Type === 'Accessory') {emit(doc.Sku, doc)} }"
+	}
+    },
+    "shows":{
+	"product":"function(doc, req){ return '<h3>'+doc.Name+'</h3><table><tr><td>SKU: </td><td>'+doc.Sku+'</td></tr> <tr><td>Color: </td><td>'+doc.Color+'</td></tr> <tr><td>Price: </td><td>'+doc.Price+'</td></tr></table> <p><img src=/products/' +doc.Sku +'/pic.png ></p>'; }"
+    }
+}
